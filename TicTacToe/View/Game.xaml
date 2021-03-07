@@ -1,0 +1,116 @@
+﻿<UserControl x:Class="TicTacToe.View.GameControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d" 
+        xmlns:local="clr-namespace:TicTacToe.Properties"
+            
+        d:DesignHeight="700" d:DesignWidth="610"
+        Margin="0,0,0,0"
+        Padding="0,0,0,0"
+        HorizontalAlignment="Center" 
+        VerticalAlignment="Center" 
+        DataContext="{Binding Game, Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Rectangle}" x:Key="GridRectangle">
+            <Setter Property="Fill" Value="SlateGray" />
+            <Setter Property="Stroke" Value="LightSkyBlue" />
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="200"/>
+            <Setter Property="IsHitTestVisible" Value="{Binding Game.IsGameAfoot, Source={StaticResource Locator}}"/>
+
+            <Style.Triggers>
+                <!-- Animates the button's opacity on mouse over. -->
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                  Storyboard.TargetProperty="(Opacity)"
+                  From="1.0" To="0.5" Duration="0:0:0.2"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+
+                    </EventTrigger.Actions>
+                </EventTrigger>
+
+                <!-- Returns the button's opacity to 1 when the mouse leaves. -->
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                  Storyboard.TargetProperty="(Opacity)"
+                  To="1" Duration="0:0:0.1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Image" x:Key="GridPictureStyle">
+            <Setter Property="Margin" Value="12.5,12.5,12.5,12.5"/>
+            <Setter Property="Opacity" Value="1"/>
+            <Setter Property="Width" Value="175"/>
+            <Setter Property="Height" Value="175"/>
+        </Style>
+    </UserControl.Resources>
+
+    <StackPanel Orientation="Vertical"   
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Width="610" 
+                Height="700"
+                Margin="0,0,0,0">
+        <Canvas Width="602" Height="602">
+            <ListView ItemsSource="{Binding Cells}" 
+                      HorizontalAlignment="Center"  
+                      BorderThickness="0,0,0,0" 
+                      Margin="0,0,0,0" 
+                      Padding="0,0,0,0"
+                      SnapsToDevicePixels="True">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Height="600" 
+                                   Width="600" 
+                                   FlowDirection="LeftToRight" 
+                                   Margin="0,0,0,0"/>
+                    </ItemsPanelTemplate>
+                    
+                </ListView.ItemsPanel>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Padding" Value="0,0,0,0"/>
+                        <Setter Property="BorderThickness" Value="0,0,0,0"/>
+                        <Setter Property="Margin" Value="0,0,0,0"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Rectangle Style="{StaticResource GridRectangle}" >
+                                <Rectangle.InputBindings>
+                                    <MouseBinding Gesture="LeftClick" Command="{Binding Click}" />
+                                </Rectangle.InputBindings>
+                            </Rectangle>
+                            <Image  Source="{Binding Image}" Style="{DynamicResource GridPictureStyle}"/>
+                        </Grid>
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ItemsControl ItemsSource="{Binding Lines}"  HorizontalAlignment="Center">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Line X1="{Binding From.X}" Y1="{Binding From.Y}"
+                      X2="{Binding To.X}" Y2="{Binding To.Y}"
+                      Stroke="{Binding Brush}" StrokeThickness="20" Opacity="0.6"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Canvas>
+        <Button Content="Exit Game" HorizontalAlignment="Center" Margin="0,25,0,0"  Width="150" Command="{Binding GoToMenu}"/>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,24 @@
+﻿<UserControl 
+        xmlns:local="clr-namespace:TicTacToe.View"
+        x:Class="TicTacToe.View.MainMenuControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        mc:Ignorable="d" 
+        d:DesignHeight="700" 
+        d:DesignWidth="600"
+        DataContext="{Binding MainMenu, Source={StaticResource Locator}}">
+    <Grid HorizontalAlignment="Center" Height="Auto" VerticalAlignment="Center" Width="Auto">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Button Content="Start Game" HorizontalAlignment="Center" Margin="0,25" VerticalAlignment="Top" Width="150" Command="{Binding GoToGame}" />
+        <Button Content="Exit" HorizontalAlignment="Center" Margin="0,25" VerticalAlignment="Top" Width="150" Grid.Row="1" Command="{Binding GoToExit}"/>
+    </Grid>
+</UserControl>
+ 

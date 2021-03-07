@@ -1,0 +1,29 @@
+﻿<Window 
+        x:Class="TicTacToe.View.MainWindow"
+        xmlns:localView="clr-namespace:TicTacToe.View"
+        xmlns:localModel="clr-namespace:TicTacToe.ViewModel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="TicTacToe" 
+        Height="600" 
+        Width="700" 
+        WindowStyle="None"   
+        ResizeMode="NoResize" 
+        WindowState="Maximized" 
+        Background="{DynamicResource ButtonBackgroundBrush}"
+        DataContext="{Binding Main, Source={StaticResource Locator}}">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type localModel:MainMenuViewModel}">
+            <localView:MainMenuControl/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type localModel:GameViewModel}">
+            <localView:GameControl/>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <ContentControl Content="{Binding CurrentPageViewModel}"/>
+    </Grid>
+</Window>
