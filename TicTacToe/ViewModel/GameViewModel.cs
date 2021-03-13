@@ -24,11 +24,51 @@ namespace TicTacToe.ViewModel
 
     public class CellDisplay : ObservableObject
     {
-        public ImageSource Image { get; set; }
-        public  int Row { get; set; }
-        public int Col { get; set;  }
+        public ImageSource Image
+        {
+            get => image;
+            set
+            {
+                image = value;
+                RaisePropertyChanged(nameof(Image));
+            }
+        }
+        public int Row
+        {
+            get
+            {
+                return row;
+            }
+            set
+            {
+                row = value;
+                RaisePropertyChanged(nameof(Row));
+                if (!suppressIndexNotify)
+                    RaisePropertyChanged(nameof(Index));
+            }
+        }
+
+        public int Col
+        {
+            get
+            {
+                return col;
+            }
+            set
+            {
+                col = value;
+                RaisePropertyChanged(nameof(Col));
+                if (!suppressIndexNotify)
+                    RaisePropertyChanged(nameof(Index));
+            }
+        }
 
         private ICommand _clickSquare;
+        private ImageSource image;
+        private bool suppressIndexNotify;
+        private int row;
+        private int col;
+        private bool selectable;
 
         public ICommand ClickCommand => _clickSquare ??= new RelayCommand(() =>
             {
@@ -37,9 +77,32 @@ namespace TicTacToe.ViewModel
                     fun.Execute(Index);
             });
 
-        public (int, int) Index => (Row, Col);
+        public (int, int) Index
+        {
+            get => (Row, Col);
+            set
+            {
+                suppressIndexNotify = true;
+                try
+                {
+                    Row = value.Item1;
+                    Col = value.Item2;
+                }
+                finally { suppressIndexNotify = false; }
 
-        public bool Selectable { get; set; }
+                RaisePropertyChanged(nameof(Index));
+            }
+        }
+
+        public bool Selectable
+        {
+            get => selectable;
+            set
+            {
+                selectable = value;
+                RaisePropertyChanged(nameof(Selectable));
+            }
+        }
     }
 
     public class GameViewModel : ViewModelBase
@@ -51,6 +114,7 @@ namespace TicTacToe.ViewModel
         private static ImageSource _xImage;
         private static ImageSource XImage => _xImage ??= (_xImage = CreateImage(new Uri("pack://application:,,,/TicTacToe;component/Resources/x-blue.png")));
         private static ImageSource _oImage;
+
         private static ImageSource OImage => _oImage ??= (_oImage = CreateImage(new Uri("pack://application:,,,/TicTacToe;component/Resources/o-blue.png")));
 
         public GameAdapter Session { get; set; }
@@ -67,18 +131,19 @@ namespace TicTacToe.ViewModel
         {
             GameTypes.IGameService instance = ServiceFactory.CreateInstanceRandomPlayer();
             Session = new GameAdapter(instance);
-            Cells = new ObservableCollection<CellDisplay>() 
-            { 
-                new CellDisplay { Image = null, Row=0, Col=0, Selectable = true },
-                new CellDisplay { Image = null, Row=0, Col=1, Selectable = true },
-                new CellDisplay { Image = null, Row=0, Col=2, Selectable = true }, 
-                new CellDisplay { Image = null, Row=1, Col=0, Selectable = true },
-                new CellDisplay { Image = null, Row=1, Col=1, Selectable = true },
-                new CellDisplay { Image = null, Row=1, Col=2, Selectable = true },
-                new CellDisplay { Image = null, Row=2, Col=0, Selectable = true },
-                new CellDisplay { Image = null, Row=2, Col=1, Selectable = true },
-                new CellDisplay { Image = null, Row=2, Col=2, Selectable = true }
+            Cells = new ObservableCollection<CellDisplay>()
+            {
+                new CellDisplay { Image = null, Index = (0, 0), Selectable = true },
+                new CellDisplay { Image = null, Index = (0, 1), Selectable = true },
+                new CellDisplay { Image = null, Index = (0, 2), Selectable = true },
+                new CellDisplay { Image = null, Index = (1, 0), Selectable = true },
+                new CellDisplay { Image = null, Index = (1, 1), Selectable = true },
+                new CellDisplay { Image = null, Index = (1, 2), Selectable = true },
+                new CellDisplay { Image = null, Index = (2, 0), Selectable = true },
+                new CellDisplay { Image = null, Index = (2, 1), Selectable = true },
+                new CellDisplay { Image = null, Index = (2, 2), Selectable = true }
             };
+
             WinStateCoordinates = new ObservableCollection<Line>();
 
             this.RaisePropertyChanged(nameof(IsGameOver));
@@ -97,7 +162,7 @@ namespace TicTacToe.ViewModel
                             Session.TakeTurn(tup);
                             foreach (var cell in Cells)
                             {
-                                if (cell.Selectable && cell.Image == null && !Session.IsValidMove(cell.Index))
+                                if (cell.Selectable && !Session.IsValidMove(cell.Index))
                                 {
                                     cell.Image = Session.GetCellState(cell.Index) switch
                                     {
@@ -106,8 +171,6 @@ namespace TicTacToe.ViewModel
                                         _ => throw new NotImplementedException()
                                     };
                                     cell.Selectable = false;
-                                    cell.RaisePropertyChanged("Image");
-                                    this.RaisePropertyChanged(nameof(Cells));
                                 }
                             }
 
@@ -126,10 +189,6 @@ namespace TicTacToe.ViewModel
                     );
 
         public bool IsGameOver => Session.IsGameOver;
-
-
-
-
 
         private void UpdateWinCoordinates(Game.GameTypes.EndCondition winState, Game.GameTypes.Turn player)
         {
