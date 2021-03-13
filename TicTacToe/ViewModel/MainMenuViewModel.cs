@@ -22,7 +22,7 @@ namespace TicTacToe.ViewModel
             {
                 return _goToGame ?? (_goToGame = new RelayCommand(()=>
                 {
-                    NavigationMediator.Notify(nameof(GoToGameCommand), "");
+                    EventMediator.Notify(nameof(GoToGameCommand), "");
                 }));
             }
         }
@@ -33,7 +33,7 @@ namespace TicTacToe.ViewModel
             {
                 return _goToExit ?? (_goToExit = new RelayCommand(() =>
                 {
-                    NavigationMediator.Notify(nameof(GoToExitCommand), "");
+                    EventMediator.Notify(nameof(GoToExitCommand), "");
                 }));
             }
         }

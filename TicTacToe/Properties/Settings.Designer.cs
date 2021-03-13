@@ -22,5 +22,29 @@ namespace TicTacToe.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SinglePlayer {
+            get {
+                return ((bool)(this["SinglePlayer"]));
+            }
+            set {
+                this["SinglePlayer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("X")]
+        public char HumanPlayer {
+            get {
+                return ((char)(this["HumanPlayer"]));
+            }
+            set {
+                this["HumanPlayer"] = value;
+            }
+        }
     }
 }

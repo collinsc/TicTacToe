@@ -47,9 +47,9 @@ namespace TicTacToe.ViewModel
 
             CurrentPageViewModel = PageViewModels[0];
 
-            NavigationMediator.Subscribe(nameof(ViewModelLocator.Instance.MainMenu.GoToGameCommand), OnGoGameScreen);
-            NavigationMediator.Subscribe(nameof(ViewModelLocator.Instance.Game.GoToMenuCommand), OnGoMenuScreen);
-            NavigationMediator.Subscribe(nameof(ViewModelLocator.Instance.MainMenu.GoToExitCommand), OnGoExit);
+            EventMediator.Subscribe(nameof(ViewModelLocator.Instance.MainMenu.GoToGameCommand), OnGoGameScreen);
+            EventMediator.Subscribe(nameof(ViewModelLocator.Instance.Game.GoToMenuCommand), OnGoMenuScreen);
+            EventMediator.Subscribe(nameof(ViewModelLocator.Instance.MainMenu.GoToExitCommand), OnGoExit);
         }
 
 

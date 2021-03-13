@@ -14,7 +14,6 @@
         VerticalAlignment="Center"
         DataContext="{Binding Game, Source={StaticResource Locator}}">
     <UserControl.Resources>
-        <local:InvertBooleanConverter  x:Key="boolConvert"/>
         <Style TargetType="{x:Type Rectangle}" x:Key="GridRectangle">
             <Setter Property="Fill" Value="SlateGray" />
             <Setter Property="Stroke" Value="LightSkyBlue" />

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace TicTacToe.ViewModel
 {
 
-    public static class NavigationMediator
+    public static class EventMediator
     {
         private static IDictionary<string, List<Action<object>>> pl_dict =
            new Dictionary<string, List<Action<object>>>();
