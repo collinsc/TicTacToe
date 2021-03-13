@@ -17,8 +17,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Button Content="Start Game" HorizontalAlignment="Center" Margin="0,25" VerticalAlignment="Top" Width="150" Command="{Binding GoToGame}" />
-        <Button Content="Exit" HorizontalAlignment="Center" Margin="0,25" VerticalAlignment="Top" Width="150" Grid.Row="1" Command="{Binding GoToExit}"/>
+        <Button Content="Start Game" HorizontalAlignment="Center" Margin="0,25" VerticalAlignment="Top" Width="150" Command="{Binding GoToGameCommand}" />
+        <Button Content="Exit" HorizontalAlignment="Center" Margin="0,25" VerticalAlignment="Top" Width="150" Grid.Row="1" Command="{Binding GoToExitCommand}"/>
     </Grid>
 </UserControl>
  

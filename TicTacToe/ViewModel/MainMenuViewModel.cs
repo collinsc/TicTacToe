@@ -6,33 +6,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TicTacToe.Models;
+using TicTacToe.Model;
 
 namespace TicTacToe.ViewModel
 {
     public class MainMenuViewModel : ViewModelBase
     {
+
         private ICommand _goToGame;
         private ICommand _goToExit;
 
-        public ICommand GoToGame
+        public ICommand GoToGameCommand
         {
             get
             {
                 return _goToGame ?? (_goToGame = new RelayCommand(()=>
                 {
-                    NavigationMediator.Notify("GoToGame", "");
+                    NavigationMediator.Notify(nameof(GoToGameCommand), "");
                 }));
             }
         }
 
-        public ICommand GoToExit
+        public ICommand GoToExitCommand
         {
             get
             {
                 return _goToExit ?? (_goToExit = new RelayCommand(() =>
                 {
-                    NavigationMediator.Notify("GoToExit", "");
+                    NavigationMediator.Notify(nameof(GoToExitCommand), "");
                 }));
             }
         }

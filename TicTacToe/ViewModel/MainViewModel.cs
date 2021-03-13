@@ -6,14 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TicTacToe.Models;
+using TicTacToe.Model;
 
 namespace TicTacToe.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-
-
         private ObservableObject _currentPageViewModel;
         private List<ObservableObject> _pageViewModels;
 
@@ -49,9 +47,9 @@ namespace TicTacToe.ViewModel
 
             CurrentPageViewModel = PageViewModels[0];
 
-            NavigationMediator.Subscribe("GoToGame", OnGoGameScreen);
-            NavigationMediator.Subscribe("GoToMenu", OnGoMenuScreen);
-            NavigationMediator.Subscribe("GoToExit", OnGoExit);
+            NavigationMediator.Subscribe(nameof(ViewModelLocator.Instance.MainMenu.GoToGameCommand), OnGoGameScreen);
+            NavigationMediator.Subscribe(nameof(ViewModelLocator.Instance.Game.GoToMenuCommand), OnGoMenuScreen);
+            NavigationMediator.Subscribe(nameof(ViewModelLocator.Instance.MainMenu.GoToExitCommand), OnGoExit);
         }
 
 

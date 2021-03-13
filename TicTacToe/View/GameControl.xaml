@@ -5,21 +5,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d" 
-        xmlns:local="clr-namespace:TicTacToe.Properties"
+        xmlns:local="clr-namespace:TicTacToe.View"
             
         d:DesignHeight="700" d:DesignWidth="610"
         Margin="0,0,0,0"
         Padding="0,0,0,0"
         HorizontalAlignment="Center" 
-        VerticalAlignment="Center" 
+        VerticalAlignment="Center"
         DataContext="{Binding Game, Source={StaticResource Locator}}">
     <UserControl.Resources>
+        <local:InvertBooleanConverter  x:Key="boolConvert"/>
         <Style TargetType="{x:Type Rectangle}" x:Key="GridRectangle">
             <Setter Property="Fill" Value="SlateGray" />
             <Setter Property="Stroke" Value="LightSkyBlue" />
             <Setter Property="Width" Value="200"/>
             <Setter Property="Height" Value="200"/>
-            <Setter Property="IsHitTestVisible" Value="{Binding Game.IsGameAfoot, Source={StaticResource Locator}}"/>
+            <Setter Property="IsHitTestVisible" Value="{Binding Selectable}"/>
 
             <Style.Triggers>
                 <!-- Animates the button's opacity on mouse over. -->
@@ -92,7 +93,7 @@
                         <Grid>
                             <Rectangle Style="{StaticResource GridRectangle}" >
                                 <Rectangle.InputBindings>
-                                    <MouseBinding Gesture="LeftClick" Command="{Binding Click}" />
+                                    <MouseBinding Gesture="LeftClick" Command="{Binding ClickCommand}" />
                                 </Rectangle.InputBindings>
                             </Rectangle>
                             <Image  Source="{Binding Image}" Style="{DynamicResource GridPictureStyle}"/>
@@ -101,7 +102,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ItemsControl ItemsSource="{Binding Lines}"  HorizontalAlignment="Center">
+            <ItemsControl ItemsSource="{Binding WinStateCoordinates}"  HorizontalAlignment="Center">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Line X1="{Binding From.X}" Y1="{Binding From.Y}"
@@ -111,6 +112,6 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Canvas>
-        <Button Content="Exit Game" HorizontalAlignment="Center" Margin="0,25,0,0"  Width="150" Command="{Binding GoToMenu}"/>
+        <Button Content="Exit Game" HorizontalAlignment="Center" Margin="0,25,0,0"  Width="150" Command="{Binding GoToMenuCommand}"/>
     </StackPanel>
 </UserControl>

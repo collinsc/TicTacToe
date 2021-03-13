@@ -22,12 +22,15 @@ namespace TicTacToe.ViewModel
     /// </summary>
     public class ViewModelLocator
     {
+
+        private static ViewModelLocator _instance;
+        public static ViewModelLocator Instance => _instance ??= _instance = new ViewModelLocator();
+
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
         public ViewModelLocator()
         {
-
             ////if (ViewModelBase.IsInDesignModeStatic)
             ////{
             ////    // Create design time view services and models
