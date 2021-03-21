@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 
 using TicTacToe.Model;
 using TicTacToe.Game;
+using System.Collections.Generic;
 
 namespace TicTacToe.ViewModel
 {
@@ -51,6 +52,20 @@ namespace TicTacToe.ViewModel
                     {
                         EventMediator.Notify(nameof(GoToMenuCommand), "");
                     });
+
+        internal void PopulateDesignTime()
+        {
+            CellList.DesignGame();
+            WinStateCoordinates = new ObservableCollection<LineDisplay>();
+            var lines = new LineDisplay[]
+            {
+                LineDisplay.CreateLineDisplay(GameTypes.EndCondition.DiagonalMajor, GameTypes.Turn.XTurn),
+                LineDisplay.CreateLineDisplay(GameTypes.EndCondition.Column1, GameTypes.Turn.OTurn)
+            };
+
+            UpdateWinCoordinates(lines);
+            this.RaisePropertyChanged(nameof(IsGameOver));
+        }
 
         public ICommand GameEndedCommand => _gameEndedCommand ??= new RelayCommand(() =>
         {
@@ -94,19 +109,23 @@ namespace TicTacToe.ViewModel
 
         private void DoGameOver()
         {
-            var player = Session.CurrentPlayer;
-            UpdateWinCoordinates(Session.EndState, player);
+            // currently engine supports one win condition
+            var lines = new LineDisplay[]
+            {
+                LineDisplay.CreateLineDisplay(Session.EndState, Session.CurrentPlayer)
+            };
+            UpdateWinCoordinates(lines);
             this.RaisePropertyChanged(nameof(IsGameOver));
             EventMediator.Notify(nameof(GameEndedCommand));
         }
 
         public bool IsGameOver => Session.IsGameOver;
 
-        private void UpdateWinCoordinates(GameTypes.EndCondition winState, GameTypes.Turn player)
+        private void UpdateWinCoordinates(IEnumerable<LineDisplay> lines)
         {
-
-            var line = LineDisplay.CreateLineDisplay(Session.EndState, Session.WinningPlayer);
-            WinStateCoordinates.Add(line);
+            WinStateCoordinates.Clear();
+            foreach (var line in lines)
+                WinStateCoordinates.Add(line);
             this.RaisePropertyChanged(nameof(WinStateCoordinates));
         }
 

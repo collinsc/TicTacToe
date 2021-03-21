@@ -12,6 +12,7 @@
   See http://www.galasoft.ch/mvvm
 */
 
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 
 namespace TicTacToe.ViewModel
@@ -45,6 +46,11 @@ namespace TicTacToe.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<MainMenuViewModel>();
             SimpleIoc.Default.Register<GameViewModel>();
+
+
+            if (ViewModelBase.IsInDesignModeStatic)
+                Game.PopulateDesignTime();
+
         }
 
         public MainViewModel Main => SimpleIoc.Default.GetInstance<MainViewModel>();

@@ -36,6 +36,22 @@ namespace TicTacToe.ViewModel
             };
         }
 
+        public void DesignGame()
+        {
+            Cells = new ObservableCollection<CellDisplay>()
+            {
+                new CellDisplay(0, 0){ Image = ImageProvider.Instance.OImage, Selectable = false },
+                new CellDisplay(0, 1),
+                new CellDisplay(0, 2),
+                new CellDisplay(1, 0),
+                new CellDisplay(1, 1){ Image = ImageProvider.Instance.OImage, Selectable = false },
+                new CellDisplay(1, 2),
+                new CellDisplay(2, 0),
+                new CellDisplay(2, 1){ Image = ImageProvider.Instance.XImage, Selectable = false },
+                new CellDisplay(2, 2){ Image = ImageProvider.Instance.OImage, Selectable = false },
+            };
+        }
+
         private void GameOverCB(object _)
         {
             var selectable = Cells.Where(c => c.Selectable);
