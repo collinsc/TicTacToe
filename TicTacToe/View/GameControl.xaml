@@ -102,6 +102,11 @@
                 </ListView.ItemTemplate>
             </ListView>
             <ItemsControl ItemsSource="{Binding WinStateCoordinates}"  HorizontalAlignment="Center">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Line X1="{Binding From.X}" Y1="{Binding From.Y}"
