@@ -14,5 +14,17 @@
     <Setting Name="OColor" Type="System.Drawing.Color" Scope="Application">
       <Value Profile="(Default)">DodgerBlue</Value>
     </Setting>
+    <Setting Name="BackgroundColor" Type="System.Drawing.Color" Scope="Application">
+      <Value Profile="(Default)">Black</Value>
+    </Setting>
+    <Setting Name="SquareColor" Type="System.Drawing.Color" Scope="Application">
+      <Value Profile="(Default)">SlateGray</Value>
+    </Setting>
+    <Setting Name="ButtonColor" Type="System.Drawing.Color" Scope="Application">
+      <Value Profile="(Default)">SteelBlue</Value>
+    </Setting>
+    <Setting Name="FontColor" Type="System.Drawing.Color" Scope="Application">
+      <Value Profile="(Default)">GhostWhite</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

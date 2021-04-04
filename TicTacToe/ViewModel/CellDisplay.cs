@@ -67,7 +67,7 @@ namespace TicTacToe.ViewModel
 
         public ICommand ClickCommand => _clickSquare ??= new RelayCommand(() =>
             {
-                var fun = ViewModelLocator.Instance.Game.ClickSquareCommand;
+                var fun = ViewModelLocator.Game.ClickSquareCommand;
                 if (fun.CanExecute(Index))
                     fun.Execute(Index);
             });

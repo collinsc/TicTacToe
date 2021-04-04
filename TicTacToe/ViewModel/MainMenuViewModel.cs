@@ -20,10 +20,10 @@ namespace TicTacToe.ViewModel
         {
             get
             {
-                return _goToGame ?? (_goToGame = new RelayCommand(()=>
+                return _goToGame ??= new RelayCommand(()=>
                 {
                     EventMediator.Notify(nameof(GoToGameCommand), "");
-                }));
+                });
             }
         }
 
@@ -31,10 +31,10 @@ namespace TicTacToe.ViewModel
         {
             get
             {
-                return _goToExit ?? (_goToExit = new RelayCommand(() =>
+                return _goToExit ??= new RelayCommand(() =>
                 {
                     EventMediator.Notify(nameof(GoToExitCommand), "");
-                }));
+                });
             }
         }
     }

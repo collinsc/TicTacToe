@@ -4,27 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicTacToe.Game;
+
 using static TicTacToe.Game.GameTypes;
 
 namespace TicTacToe.Model
 {
     public class GameService
     {
-        public GameService(IGameService implementation, GameSettings settings)
+        private readonly IGameplaySettings gameSettings;
+
+  
+        public GameService(IGameService implementation, IGameplaySettings settings)
         {
             Instance = implementation;
-            Settings = settings;
+            gameSettings = settings;
         }
 
         public void Start()
         {
-            if (GameSettings.SinglePlayer && GameSettings.HumanPlayer != Instance.ActivePlayer)
+            if (gameSettings.SinglePlayer && gameSettings.HumanPlayer != Instance.ActivePlayer)
                 Instance.TakeAITurn();
         }
 
         private IGameService Instance { get; }
 
-        private GameSettings Settings { get; }
+
 
         public Player? CurrentPlayer => Instance.ActivePlayer;
 
@@ -34,7 +38,7 @@ namespace TicTacToe.Model
 
         public void TakeTurn((int, int) index)
         {
-            if (GameSettings.SinglePlayer)
+            if (gameSettings.SinglePlayer)
             {
                 Instance.TakeTurn(index.Item1, index.Item2);
                 if (!Instance.IsOver)

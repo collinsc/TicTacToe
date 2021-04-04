@@ -26,6 +26,7 @@ namespace TicTacToe.ViewModel
         private ICommand _clickSquare;
         private ICommand _gameEndedCommand;
         private CellDisplayList cellList;
+        private SolidColorBrush _gridBrush;
 
         public GameService Session { get; set; }
 
@@ -36,13 +37,14 @@ namespace TicTacToe.ViewModel
 
         public GameViewModel() : base()
         {
-            EventMediator.Subscribe(nameof(ViewModelLocator.Instance.MainMenu.GoToGameCommand), StartGame);
+            EventMediator.Subscribe(nameof(ViewModelLocator.MainMenu.GoToGameCommand), StartGame);
         }
 
         private void StartGame(object obj)
         {
             IGameService instance = Interfaces.ServiceFactory.CreateInstanceRandomPlayer();
-            Session = new GameService(instance, GameSettings.Instance);
+            IGameplaySettings settings = SettingsFactory.GetGameplaySettings();
+            Session = new GameService(instance, settings);
             CellList.NewGame();
             WinStateCoordinates = new ObservableCollection<LineDisplay>();
             this.RaisePropertyChanged(nameof(IsGameOver));

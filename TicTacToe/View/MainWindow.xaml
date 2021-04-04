@@ -13,8 +13,8 @@
         WindowStyle="None"   
         ResizeMode="NoResize" 
         WindowState="Maximized" 
-        Background="{DynamicResource ButtonBackgroundBrush}"
-        DataContext="{Binding Main, Source={StaticResource Locator}}">
+        DataContext="{Binding Main, Source={StaticResource Locator}}"
+        Background="{StaticResource BackgroundBrush}">
     <Window.Resources>
         <DataTemplate DataType="{x:Type localModel:MainMenuViewModel}">
             <localView:MainMenuControl/>

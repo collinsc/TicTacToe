@@ -15,7 +15,12 @@
         DataContext="{Binding Game, Source={StaticResource Locator}}">
     <UserControl.Resources>
         <Style TargetType="{x:Type Rectangle}" x:Key="GridRectangle">
-            <Setter Property="Fill" Value="SlateGray" />
+            <Setter Property="Fill" >
+                <Setter.Value>
+                    <SolidColorBrush Color="{Binding Display.SquareColor, Source={StaticResource Locator}}"/>
+                </Setter.Value>
+            </Setter>
+
             <Setter Property="Width" Value="200"/>
             <Setter Property="Height" Value="200"/>
             <Setter Property="IsHitTestVisible" Value="{Binding Selectable}"/>
@@ -55,11 +60,7 @@
             <Setter Property="Height" Value="175"/>
         </Style>
         <Style TargetType="Line" x:Key="GridLine">
-            <Setter Property="Stroke">
-                <Setter.Value>
-                    <SolidColorBrush Color="Black"/>
-                </Setter.Value>
-            </Setter>
+            <Setter Property="Stroke" Value="{StaticResource BackgroundBrush}" />
             <Setter Property="StrokeThickness" Value="3"/>
         </Style>
     </UserControl.Resources>
@@ -150,6 +151,10 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Canvas>
-        <Button Content="Exit Game" HorizontalAlignment="Center" Margin="0,25,0,0"  Width="150" Command="{Binding GoToMenuCommand}"/>
+        <Button 
+            Style="{StaticResource NavigationButton}"
+            Content="Exit Game" 
+            HorizontalAlignment="Center" 
+            Command="{Binding GoToMenuCommand}"/>
     </StackPanel>
 </UserControl>

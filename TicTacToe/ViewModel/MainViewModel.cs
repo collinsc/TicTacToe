@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using TicTacToe.Model;
 
 namespace TicTacToe.ViewModel
@@ -35,9 +36,11 @@ namespace TicTacToe.ViewModel
             set
             {
                 _currentPageViewModel = value;
-                RaisePropertyChanged("CurrentPageViewModel");
+                RaisePropertyChanged(nameof(CurrentPageViewModel));
             }
         }
+
+
 
         public MainViewModel()
         {
@@ -47,9 +50,9 @@ namespace TicTacToe.ViewModel
 
             CurrentPageViewModel = PageViewModels[0];
 
-            EventMediator.Subscribe(nameof(ViewModelLocator.Instance.MainMenu.GoToGameCommand), OnGoGameScreen);
-            EventMediator.Subscribe(nameof(ViewModelLocator.Instance.Game.GoToMenuCommand), OnGoMenuScreen);
-            EventMediator.Subscribe(nameof(ViewModelLocator.Instance.MainMenu.GoToExitCommand), OnGoExit);
+            EventMediator.Subscribe(nameof(ViewModelLocator.MainMenu.GoToGameCommand), OnGoGameScreen);
+            EventMediator.Subscribe(nameof(ViewModelLocator.Game.GoToMenuCommand), OnGoMenuScreen);
+            EventMediator.Subscribe(nameof(ViewModelLocator.MainMenu.GoToExitCommand), OnGoExit);
         }
 
 
