@@ -16,6 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Button 
             Style="{StaticResource NavigationButton}"
@@ -25,10 +26,17 @@
             Command="{Binding GoToGameCommand}" />
         <Button
             Style="{StaticResource NavigationButton}"
-            Content="Exit" 
+            Content="Settings" 
             HorizontalAlignment="Center" 
             VerticalAlignment="Top" 
             Grid.Row="1" 
+            Command="{Binding GoToSettingsCommand}"/>
+        <Button
+            Style="{StaticResource NavigationButton}"
+            Content="Exit" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Top" 
+            Grid.Row="2" 
             Command="{Binding GoToExitCommand}"/>
     </Grid>
 </UserControl>

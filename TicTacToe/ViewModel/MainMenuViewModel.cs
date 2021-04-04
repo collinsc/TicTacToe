@@ -15,6 +15,7 @@ namespace TicTacToe.ViewModel
 
         private ICommand _goToGame;
         private ICommand _goToExit;
+        private ICommand _goToSettings;
 
         public ICommand GoToGameCommand
         {
@@ -37,5 +38,17 @@ namespace TicTacToe.ViewModel
                 });
             }
         }
+
+        public ICommand GoToSettingsCommand
+        {
+            get
+            {
+                return _goToSettings ??= new RelayCommand(() =>
+                {
+                    EventMediator.Notify(nameof(GoToSettingsCommand), "");
+                });
+            }
+        }
+
     }
 }

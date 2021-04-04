@@ -45,14 +45,19 @@ namespace TicTacToe.ViewModel
         public MainViewModel()
         {
             // Add available pages and set page
-            PageViewModels.Add(SimpleIoc.Default.GetInstance<MainMenuViewModel>());
-            PageViewModels.Add(SimpleIoc.Default.GetInstance<GameViewModel>());
+            PageViewModels.Add(ViewModelLocator.MainMenu);
+            PageViewModels.Add(ViewModelLocator.Game);
+            PageViewModels.Add(ViewModelLocator.Settings);
+
+            //todo
 
             CurrentPageViewModel = PageViewModels[0];
 
             EventMediator.Subscribe(nameof(ViewModelLocator.MainMenu.GoToGameCommand), OnGoGameScreen);
             EventMediator.Subscribe(nameof(ViewModelLocator.Game.GoToMenuCommand), OnGoMenuScreen);
             EventMediator.Subscribe(nameof(ViewModelLocator.MainMenu.GoToExitCommand), OnGoExit);
+            EventMediator.Subscribe(nameof(ViewModelLocator.MainMenu.GoToSettingsCommand), OnGoSettingsScreen);
+            EventMediator.Subscribe(nameof(ViewModelLocator.Settings.GoToMenuCommand), OnGoMenuScreen);
         }
 
 
@@ -73,6 +78,11 @@ namespace TicTacToe.ViewModel
         private void OnGoMenuScreen(object obj)
         {
             ChangeViewModel(PageViewModels[0]);
+        }
+
+        private void OnGoSettingsScreen(object obj)
+        {
+            ChangeViewModel(PageViewModels[2]);
         }
 
         private void OnGoExit(object obj)

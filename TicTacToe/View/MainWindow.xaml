@@ -22,6 +22,9 @@
         <DataTemplate DataType="{x:Type localModel:GameViewModel}">
             <localView:GameControl/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type localModel:SettingsViewModel}">
+            <localView:SettingsControl/>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <ContentControl Content="{Binding CurrentPageViewModel}"/>

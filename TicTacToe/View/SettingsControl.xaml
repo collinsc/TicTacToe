@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="TicTacToe.View.SettingsControl"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TicTacToe.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="610"
+      Margin="0,0,0,0"
+      Padding="0,0,0,0"
+      HorizontalAlignment="Center" 
+      VerticalAlignment="Center"
+      DataContext="{Binding Settings, Source={StaticResource Locator}}">
+
+    <Grid HorizontalAlignment="Center" Height="Auto" VerticalAlignment="Center" Width="Auto">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Button 
+            Style="{StaticResource NavigationButton}"
+            Content="Return to Menu" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Top" 
+            Command="{Binding GoToMenuCommand}" />
+
+    </Grid>
+</UserControl>
