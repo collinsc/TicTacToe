@@ -11,19 +11,30 @@ namespace TicTacToe.ViewModel
 {
     public class DisplayViewModel : ViewModelBase
     {
+
         private static Color? _backgroundColor;
 
-        public Color BackgroundColor => _backgroundColor ??= SettingsFactory.GetDisplaySettings().BackgroundColor;
+        public static Color BackgroundColor => _backgroundColor ??= SettingsFactory.GetDisplaySettings().BackgroundColor;
 
         private static Color? _buttonColor;
-        public Color ButtonColor => _buttonColor ??= SettingsFactory.GetDisplaySettings().ButtonColor;
+        public static Color ButtonColor => _buttonColor ??= SettingsFactory.GetDisplaySettings().ButtonColor;
 
 
         private static Color? _fontColor;
-        public Color FontColor => _fontColor ??= SettingsFactory.GetDisplaySettings().FontColor;
+        public static Color FontColor => _fontColor ??= SettingsFactory.GetDisplaySettings().FontColor;
 
         private static Color? _squareColor;
-        public Color SquareColor => _squareColor ??= SettingsFactory.GetDisplaySettings().SquareColor;
+
+        public static Color SquareColor => _squareColor ??= SettingsFactory.GetDisplaySettings().SquareColor;
+
+
+        private static Color? _xColor;
+
+        public static Color XColor => _xColor ??= SettingsFactory.GetDisplaySettings().XColor;
+
+        private static Color? _oColor;
+
+        public static Color OColor => _oColor ??= SettingsFactory.GetDisplaySettings().OColor;
 
     }
 }

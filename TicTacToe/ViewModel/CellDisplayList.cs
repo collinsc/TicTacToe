@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicTacToe.Model;
+using static TicTacToe.Game.GameTypes;
 
 namespace TicTacToe.ViewModel
 {
@@ -38,18 +39,11 @@ namespace TicTacToe.ViewModel
 
         public void DesignGame()
         {
-            Cells = new ObservableCollection<CellDisplay>()
-            {
-                new CellDisplay(0, 0){ Image = ImageProvider.Instance.OImage, Selectable = false },
-                new CellDisplay(0, 1),
-                new CellDisplay(0, 2),
-                new CellDisplay(1, 0),
-                new CellDisplay(1, 1){ Image = ImageProvider.Instance.OImage, Selectable = false },
-                new CellDisplay(1, 2),
-                new CellDisplay(2, 0),
-                new CellDisplay(2, 1){ Image = ImageProvider.Instance.XImage, Selectable = false },
-                new CellDisplay(2, 2){ Image = ImageProvider.Instance.OImage, Selectable = false },
-            };
+            NewGame();
+            Cells[0].SetCellState(CellState.NewPlayer(Player.O));
+            Cells[4].SetCellState(CellState.NewPlayer(Player.X));
+            Cells[7].SetCellState(CellState.NewPlayer(Player.O));
+            Cells[8].SetCellState(CellState.NewPlayer(Player.O));
         }
 
         private void GameOverCB(object _)

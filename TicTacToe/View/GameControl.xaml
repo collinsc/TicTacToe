@@ -86,10 +86,10 @@
                                    FlowDirection="LeftToRight" 
                                    Margin="0,0,0,0"
                                    Background="{x:Null}">
-                            
+
                         </WrapPanel>
                     </ItemsPanelTemplate>
-                    
+
                 </ListView.ItemsPanel>
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -106,7 +106,20 @@
                                     <MouseBinding Gesture="LeftClick" Command="{Binding ClickCommand}" />
                                 </Rectangle.InputBindings>
                             </Rectangle>
-                            <Image  Source="{Binding Image}" Style="{DynamicResource GridPictureStyle}"/>
+                            <ItemsControl ItemsSource="{Binding Shapes}">
+
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <Canvas 
+                                            Height="200" 
+                                            Width="200" 
+                                            Margin="0,0,0,0"/>
+                                    </ItemsPanelTemplate>
+
+                                </ItemsControl.ItemsPanel>
+
+                            </ItemsControl>
+                            <!--<Image  Source="{Binding Image}" Style="{DynamicResource GridPictureStyle}"/>-->
                         </Grid>
 
                     </DataTemplate>

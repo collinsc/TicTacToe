@@ -26,7 +26,6 @@ namespace TicTacToe.ViewModel
         private ICommand _clickSquare;
         private ICommand _gameEndedCommand;
         private CellDisplayList cellList;
-        private SolidColorBrush _gridBrush;
 
         public GameService Session { get; set; }
 
@@ -82,15 +81,7 @@ namespace TicTacToe.ViewModel
             foreach (var cell in Cells)
             {
                 if (cell.Selectable && !Session.IsValidMove(cell.Index))
-                {
-                    cell.Image = Session.GetCellState(cell.Index) switch
-                    {
-                        CellState.Player p when p.Item == Player.X => ImageProvider.Instance.XImage,
-                        CellState.Player p when p.Item == Player.O => ImageProvider.Instance.OImage,
-                        _ => throw new NotImplementedException()
-                    };
-                    cell.Selectable = false;
-                }
+                    cell.SetCellState(Session.GetCellState(cell.Index));
             }
         }
 
