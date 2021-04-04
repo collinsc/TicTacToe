@@ -7,6 +7,24 @@
 
     <Application.Resources>
         <vm:ViewModelLocator xmlns:vm="clr-namespace:TicTacToe.ViewModel" x:Key="Locator" />
+        <SolidColorBrush  x:Key="BackgroundBrush" Color="{Binding Display.BackgroundColor, Source={StaticResource Locator}}"/>
+
+
+        <Style TargetType="Button" x:Key="NavigationButton">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Color="{Binding Display.ButtonColor,Source={StaticResource Locator}}"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <SolidColorBrush Color="{Binding Display.FontColor ,Source={StaticResource Locator}}"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Margin" Value="0,25"/>
+        </Style>
         <!--<ResourceDictionary.MergedDictionaries>
      <ResourceDictionary Source="Themes/MetroDark/MetroDark.MSControls.Core.Implicit.xaml">
         </ResourceDictionary>

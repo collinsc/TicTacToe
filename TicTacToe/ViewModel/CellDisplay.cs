@@ -3,31 +3,55 @@ using GalaSoft.MvvmLight.Command;
 using System;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
+using TicTacToe.Game;
+using static TicTacToe.Game.GameTypes;
 
 namespace TicTacToe.ViewModel
 {
     public class CellDisplay : ObservableObject
     {
 
+        private ICommand _clickSquare;
+
+        private bool suppressIndexNotify;
+        private int row;
+        private int col;
+        private bool selectable;
+        private Shape[] shapes;
+
         public CellDisplay(int row, int col)
         {
-            
             Index = (row, col);
-            Image = null;
             Selectable = true;
+            Shapes = null ;
         }
+
 
  
-
-        public ImageSource Image
+        public Shape[] Shapes
         {
-            get => image;
-            set
+            get => shapes;
+            set 
             {
-                image = value;
-                RaisePropertyChanged(nameof(Image));
+                shapes = value;
+                RaisePropertyChanged(nameof(Shapes));
+
             }
         }
+
+        public void SetCellState(CellState state)
+        {
+            Shapes = state switch
+            {
+                CellState.Player p when p.Item == Player.X => PlayerShapeFactory.CreateX(),
+                CellState.Player p when p.Item == Player.O => PlayerShapeFactory.CreateO(),
+                _  => null
+            };
+            if (Shapes != null)
+                Selectable = false;
+        }
+
         public int Row
         {
             get
@@ -58,16 +82,11 @@ namespace TicTacToe.ViewModel
             }
         }
 
-        private ICommand _clickSquare;
-        private ImageSource image;
-        private bool suppressIndexNotify;
-        private int row;
-        private int col;
-        private bool selectable;
+
 
         public ICommand ClickCommand => _clickSquare ??= new RelayCommand(() =>
             {
-                var fun = ViewModelLocator.Instance.Game.ClickSquareCommand;
+                var fun = ViewModelLocator.Game.ClickSquareCommand;
                 if (fun.CanExecute(Index))
                     fun.Execute(Index);
             });

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicTacToe.Model;
+using static TicTacToe.Game.GameTypes;
 
 namespace TicTacToe.ViewModel
 {
@@ -34,6 +35,15 @@ namespace TicTacToe.ViewModel
                 new CellDisplay(2, 1),
                 new CellDisplay(2, 2),
             };
+        }
+
+        public void DesignGame()
+        {
+            NewGame();
+            Cells[0].SetCellState(CellState.NewPlayer(Player.O));
+            Cells[4].SetCellState(CellState.NewPlayer(Player.X));
+            Cells[7].SetCellState(CellState.NewPlayer(Player.O));
+            Cells[8].SetCellState(CellState.NewPlayer(Player.O));
         }
 
         private void GameOverCB(object _)

@@ -12,6 +12,7 @@
   See http://www.galasoft.ch/mvvm
 */
 
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 
 namespace TicTacToe.ViewModel
@@ -45,12 +46,20 @@ namespace TicTacToe.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<MainMenuViewModel>();
             SimpleIoc.Default.Register<GameViewModel>();
+            SimpleIoc.Default.Register<DisplayViewModel>();
+
+
+            if (ViewModelBase.IsInDesignModeStatic)
+                Game.PopulateDesignTime();
+
         }
 
-        public MainViewModel Main => SimpleIoc.Default.GetInstance<MainViewModel>();
+        public static MainViewModel Main => SimpleIoc.Default.GetInstance<MainViewModel>();
 
-        public MainMenuViewModel MainMenu => SimpleIoc.Default.GetInstance<MainMenuViewModel>();
-        public GameViewModel Game => SimpleIoc.Default.GetInstance<GameViewModel>();
+        public static MainMenuViewModel MainMenu => SimpleIoc.Default.GetInstance<MainMenuViewModel>();
+        public static GameViewModel Game => SimpleIoc.Default.GetInstance<GameViewModel>();
+
+        public static DisplayViewModel Display => SimpleIoc.Default.GetInstance<DisplayViewModel>();
 
 
         public static void Cleanup()
@@ -58,6 +67,8 @@ namespace TicTacToe.ViewModel
             SimpleIoc.Default.Unregister<MainViewModel>();
             SimpleIoc.Default.Unregister<MainMenuViewModel>();
             SimpleIoc.Default.Unregister<GameViewModel>();
+            SimpleIoc.Default.Unregister<DisplayViewModel>();
+
         }
     }
 }
