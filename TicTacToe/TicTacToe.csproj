@@ -32,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Resources\o-blue.png" />
+    <None Remove="Resources\o-orange.png" />
     <None Remove="Resources\x-blue.png" />
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +49,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\o-blue.png" />
+    <Resource Include="Resources\o-orange.png" />
     <Resource Include="Resources\x-blue.png" />
   </ItemGroup>
   <ItemGroup>

@@ -11,6 +11,8 @@ using System.Windows.Media.Imaging;
 
 using TicTacToe.Model;
 using TicTacToe.Game;
+using static TicTacToe.Game.GameTypes;
+
 using System.Collections.Generic;
 
 namespace TicTacToe.ViewModel
@@ -39,7 +41,7 @@ namespace TicTacToe.ViewModel
 
         private void StartGame(object obj)
         {
-            GameTypes.IGameService instance = Interfaces.ServiceFactory.CreateInstanceRandomPlayer();
+            IGameService instance = Interfaces.ServiceFactory.CreateInstanceRandomPlayer();
             Session = new GameService(instance, GameSettings.Instance);
             CellList.NewGame();
             WinStateCoordinates = new ObservableCollection<LineDisplay>();
@@ -59,8 +61,8 @@ namespace TicTacToe.ViewModel
             WinStateCoordinates = new ObservableCollection<LineDisplay>();
             var lines = new LineDisplay[]
             {
-                LineDisplay.CreateLineDisplay(GameTypes.EndCondition.DiagonalMajor, GameTypes.Turn.XTurn),
-                LineDisplay.CreateLineDisplay(GameTypes.EndCondition.Column1, GameTypes.Turn.OTurn)
+                LineDisplay.CreateLineDisplay(EndCondition.DiagonalMajor, Player.X),
+                LineDisplay.CreateLineDisplay(EndCondition.Column1, Player.O)
             };
 
             UpdateWinCoordinates(lines);
@@ -81,8 +83,8 @@ namespace TicTacToe.ViewModel
                 {
                     cell.Image = Session.GetCellState(cell.Index) switch
                     {
-                        GameTypes.CellState.X => ImageProvider.Instance.XImage,
-                        GameTypes.CellState.O => ImageProvider.Instance.OImage,
+                        CellState.Player p when p.Item == Player.X => ImageProvider.Instance.XImage,
+                        CellState.Player p when p.Item == Player.O => ImageProvider.Instance.OImage,
                         _ => throw new NotImplementedException()
                     };
                     cell.Selectable = false;
@@ -110,10 +112,9 @@ namespace TicTacToe.ViewModel
         private void DoGameOver()
         {
             // currently engine supports one win condition
-            var lines = new LineDisplay[]
-            {
-                LineDisplay.CreateLineDisplay(Session.EndState, Session.CurrentPlayer)
-            };
+            var lines = Session.WinningPlayer.HasValue?
+                new LineDisplay[] { LineDisplay.CreateLineDisplay(Session.EndState.Value, Session.WinningPlayer.Value) } :
+                null;
             UpdateWinCoordinates(lines);
             this.RaisePropertyChanged(nameof(IsGameOver));
             EventMediator.Notify(nameof(GameEndedCommand));
@@ -124,8 +125,11 @@ namespace TicTacToe.ViewModel
         private void UpdateWinCoordinates(IEnumerable<LineDisplay> lines)
         {
             WinStateCoordinates.Clear();
-            foreach (var line in lines)
-                WinStateCoordinates.Add(line);
+            if (lines != null)
+            {
+                foreach (var line in lines)
+                    WinStateCoordinates.Add(line);
+            }
             this.RaisePropertyChanged(nameof(WinStateCoordinates));
         }
 

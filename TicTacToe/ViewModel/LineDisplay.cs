@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 using TicTacToe.Game;
+using TicTacToe.Model;
 
 namespace TicTacToe.ViewModel
 {
@@ -11,7 +12,7 @@ namespace TicTacToe.ViewModel
         public Point To { get; set; }
         public Brush Brush { get; set; }
 
-        public static LineDisplay CreateLineDisplay(GameTypes.EndCondition winState, GameTypes.Turn winningPlayer)
+        public static LineDisplay CreateLineDisplay(GameTypes.EndCondition winState, GameTypes.Player winningPlayer)
         {
 
             int edgOfst = 25;
@@ -34,11 +35,12 @@ namespace TicTacToe.ViewModel
                 };
 
             var (x1, x2, y1, y2) = GetLineIndexes(winState);
+            var color = ColorProvider.Instance.GetPlayerColor(winningPlayer);
             return new LineDisplay
             {
                 From = new Point(x1, y1),
                 To = new Point(x2, y2),
-                Brush = (winningPlayer == GameTypes.Turn.XTurn) ? new SolidColorBrush(Color.FromRgb(0, 168, 243)) : Brushes.White
+                Brush = new SolidColorBrush(color)
             };
         }
 

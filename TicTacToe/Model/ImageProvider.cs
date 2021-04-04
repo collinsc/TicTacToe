@@ -17,7 +17,7 @@ namespace TicTacToe.Model
         public ImageSource XImage => _xImage ??= CreateImage(new Uri("pack://application:,,,/TicTacToe;component/Resources/x-blue.png"));
         
         private ImageSource _oImage;
-        public ImageSource OImage => _oImage ??= CreateImage(new Uri("pack://application:,,,/TicTacToe;component/Resources/o-blue.png"));
+        public ImageSource OImage => _oImage ??= CreateImage(new Uri("pack://application:,,,/TicTacToe;component/Resources/o-orange.png"));
 
         private static ImageSource CreateImage(Uri uri)
         {

@@ -16,11 +16,9 @@
     <UserControl.Resources>
         <Style TargetType="{x:Type Rectangle}" x:Key="GridRectangle">
             <Setter Property="Fill" Value="SlateGray" />
-            <Setter Property="Stroke" Value="LightSkyBlue" />
             <Setter Property="Width" Value="200"/>
             <Setter Property="Height" Value="200"/>
             <Setter Property="IsHitTestVisible" Value="{Binding Selectable}"/>
-
             <Style.Triggers>
                 <!-- Animates the button's opacity on mouse over. -->
                 <EventTrigger RoutedEvent="MouseEnter">
@@ -56,6 +54,14 @@
             <Setter Property="Width" Value="175"/>
             <Setter Property="Height" Value="175"/>
         </Style>
+        <Style TargetType="Line" x:Key="GridLine">
+            <Setter Property="Stroke">
+                <Setter.Value>
+                    <SolidColorBrush Color="Black"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="StrokeThickness" Value="3"/>
+        </Style>
     </UserControl.Resources>
 
     <StackPanel Orientation="Vertical"   
@@ -70,13 +76,17 @@
                       BorderThickness="0,0,0,0" 
                       Margin="0,0,0,0" 
                       Padding="0,0,0,0"
-                      SnapsToDevicePixels="True">
+                      SnapsToDevicePixels="True"
+                      Background="{x:Null}">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Height="600" 
                                    Width="600" 
                                    FlowDirection="LeftToRight" 
-                                   Margin="0,0,0,0"/>
+                                   Margin="0,0,0,0"
+                                   Background="{x:Null}">
+                            
+                        </WrapPanel>
                     </ItemsPanelTemplate>
                     
                 </ListView.ItemsPanel>
@@ -101,6 +111,30 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Line Style="{StaticResource GridLine}">
+                <Line.X1>1</Line.X1>
+                <Line.Y1>201</Line.Y1>
+                <Line.X2>601</Line.X2>
+                <Line.Y2>201</Line.Y2>
+            </Line>
+            <Line Style="{StaticResource GridLine}">
+                <Line.X1>1</Line.X1>
+                <Line.Y1>401</Line.Y1>
+                <Line.X2>601</Line.X2>
+                <Line.Y2>401</Line.Y2>
+            </Line>
+            <Line Style="{StaticResource GridLine}">
+                <Line.X1>201</Line.X1>
+                <Line.Y1>1</Line.Y1>
+                <Line.X2>201</Line.X2>
+                <Line.Y2>601</Line.Y2>
+            </Line>
+            <Line Style="{StaticResource GridLine}">
+                <Line.X1>401</Line.X1>
+                <Line.Y1>1</Line.Y1>
+                <Line.X2>401</Line.X2>
+                <Line.Y2>601</Line.Y2>
+            </Line>
             <ItemsControl ItemsSource="{Binding WinStateCoordinates}"  HorizontalAlignment="Center">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>

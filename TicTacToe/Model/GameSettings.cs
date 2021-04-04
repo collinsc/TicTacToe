@@ -12,7 +12,11 @@ namespace TicTacToe.Model
     {
         private static GameSettings _instance;
         public static GameSettings Instance => _instance ??= new GameSettings();
-        public bool SinglePlayer => Settings.Default.SinglePlayer;
-        public GameTypes.Turn HumanPlayer => Settings.Default.HumanPlayer == 'X' ? GameTypes.Turn.XTurn : GameTypes.Turn.OTurn;
+        public static bool SinglePlayer => Settings.Default.SinglePlayer;
+        public static GameTypes.Player HumanPlayer => Settings.Default.HumanPlayer == 'X' ? GameTypes.Player.X: GameTypes.Player.O;
+
+        public static System.Drawing.Color XColor => Settings.Default.XColor;
+        public static System.Drawing.Color OColor => Settings.Default.OColor;
+
     }
 }
