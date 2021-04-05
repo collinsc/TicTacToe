@@ -33,6 +33,25 @@ namespace TicTacToe.Model
             Save();
         }
 
+        public static Setting<GameTypes.Difficulty> Difficulty
+        {
+            get
+            {
+                return new()
+                {
+                    Name = "Difficulty",
+                    Description = "",
+                    Value = (GameTypes.Difficulty)Settings.Default.Difficulty
+                };
+            }
+        }
+        public static void SetDifficulty(GameTypes.Difficulty difficulty)
+        {
+            Settings.Default.Difficulty = (int)difficulty;
+            Save();
+        }
+
+
         public static Setting<GameTypes.Player> HumanPlayer
         {
             get

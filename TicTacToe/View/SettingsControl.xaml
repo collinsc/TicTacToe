@@ -21,7 +21,7 @@
         <SolidColorBrush x:Key="ModeBrush" 
                          Color="{Binding Display.FontColor, Source={StaticResource Locator}}"
                          Opacity="0.5"/>
-        <SolidColorBrush x:Key="Mode2Brush" 
+        <SolidColorBrush x:Key="DifficultyBrush" 
                          Color="{Binding Display.FontColor, Source={StaticResource Locator}}"
                          Opacity="0.5"/>
 
@@ -209,18 +209,19 @@
             <ComboBoxItem Content="Two Player" />
         </ComboBox>
 
-        <Label Content="Mode" 
+        <Label Content="Difficutly" 
                Grid.Row="1" 
                Grid.Column="0"
-               Foreground="{StaticResource Mode2Brush}"/>
+               Foreground="{StaticResource DifficultyBrush}"/>
 
         <ComboBox 
             Grid.Row="1" 
             Grid.Column="1"
-            SelectedIndex="{Binding ModeIndex}"
-            Foreground="{StaticResource Mode2Brush}">
-            <ComboBoxItem Content="Single Player" />
-            <ComboBoxItem Content="Two Player" />
+            SelectedIndex="{Binding DifficultyIndex}"
+            Foreground="{StaticResource DifficultyBrush}">
+            <ComboBoxItem Content="Easy" />
+            <ComboBoxItem Content="Challenging" />
+            <ComboBoxItem Content="Impossible" />
 
         </ComboBox>
 

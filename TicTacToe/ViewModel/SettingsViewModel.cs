@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TicTacToe.Game;
 using TicTacToe.Model;
 
 namespace TicTacToe.ViewModel
@@ -23,6 +24,16 @@ namespace TicTacToe.ViewModel
             {
                 SettingsFacade.SetGameMode((GameMode)value);
                 RaisePropertyChanged(nameof(ModeIndex));
+            }
+        }
+
+        public int DifficultyIndex
+        {
+            get => (int)SettingsFacade.Difficulty.Value;
+            set
+            {
+                SettingsFacade.SetDifficulty((GameTypes.Difficulty)value);
+                RaisePropertyChanged(nameof(DifficultyIndex));
             }
         }
 

@@ -26,5 +26,8 @@
     <Setting Name="FontColor" Type="System.Drawing.Color" Scope="Application">
       <Value Profile="(Default)">GhostWhite</Value>
     </Setting>
+    <Setting Name="Difficulty" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
