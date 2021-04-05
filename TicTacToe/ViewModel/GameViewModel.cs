@@ -42,7 +42,7 @@ namespace TicTacToe.ViewModel
         private void StartGame(object obj)
         {
             IGameService instance = Interfaces.ServiceFactory.CreateInstanceRandomPlayer();
-            IGameplaySettings settings = SettingsFactory.GetGameplaySettings();
+            IGameplaySettings settings = new GameplaySettingsProvider();
             Session = new GameService(instance, settings);
             CellList.NewGame();
             WinStateCoordinates = new ObservableCollection<LineDisplay>();

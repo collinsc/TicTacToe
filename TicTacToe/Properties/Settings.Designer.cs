@@ -25,13 +25,13 @@ namespace TicTacToe.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool SinglePlayer {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int GameMode {
             get {
-                return ((bool)(this["SinglePlayer"]));
+                return ((int)(this["GameMode"]));
             }
             set {
-                this["SinglePlayer"] = value;
+                this["GameMode"] = value;
             }
         }
         

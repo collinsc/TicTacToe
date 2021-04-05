@@ -4,21 +4,22 @@ namespace TicTacToe.Model
 {
     public interface IGameplaySettings
     {
-        bool SinglePlayer { get; }
+        GameMode Mode { get; }
         GameTypes.Player HumanPlayer { get; }
     }
     class GameplaySettingsProvider : IGameplaySettings
     {
-        private readonly bool singlePlayer;
-        private readonly GameTypes.Player humanPlayer;
+
+        private readonly Setting<GameMode> mode;
+        private readonly Setting<GameTypes.Player> humanPlayer;
 
         public GameplaySettingsProvider()
         {
-            singlePlayer = GameSettingsAdapter.SinglePlayer;
-            humanPlayer = GameSettingsAdapter.HumanPlayer;
+            mode = SettingsFacade.GameMode;
+            humanPlayer = SettingsFacade.HumanPlayer;
         }
-        public bool SinglePlayer => singlePlayer;
+        public GameMode Mode => mode.Value;
 
-        public GameTypes.Player HumanPlayer => humanPlayer;
+        public GameTypes.Player HumanPlayer => humanPlayer.Value;
     }
 }

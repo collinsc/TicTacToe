@@ -47,6 +47,7 @@ namespace TicTacToe.ViewModel
             SimpleIoc.Default.Register<MainMenuViewModel>();
             SimpleIoc.Default.Register<GameViewModel>();
             SimpleIoc.Default.Register<DisplayViewModel>();
+            SimpleIoc.Default.Register<SettingsViewModel>();
 
 
             if (ViewModelBase.IsInDesignModeStatic)
@@ -61,6 +62,8 @@ namespace TicTacToe.ViewModel
 
         public static DisplayViewModel Display => SimpleIoc.Default.GetInstance<DisplayViewModel>();
 
+        public static SettingsViewModel Settings => SimpleIoc.Default.GetInstance<SettingsViewModel>();
+
 
         public static void Cleanup()
         {
@@ -68,6 +71,7 @@ namespace TicTacToe.ViewModel
             SimpleIoc.Default.Unregister<MainMenuViewModel>();
             SimpleIoc.Default.Unregister<GameViewModel>();
             SimpleIoc.Default.Unregister<DisplayViewModel>();
+            SimpleIoc.Default.Unregister<SettingsViewModel>();
 
         }
     }

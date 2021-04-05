@@ -22,33 +22,33 @@ namespace TicTacToe.Model
 
     class DisplaySettingsProvider : IDisplaySettings
     {
-        private readonly Color backgroundColor;
-        private readonly Color squareColor;
-        private readonly Color xColor;
-        private readonly Color oColor;
-        private readonly Color buttonColor;
-        private readonly Color fontColor;
+        private readonly Setting<Color> backgroundColor;
+        private readonly Setting<Color> squareColor;
+        private readonly Setting<Color> xColor;
+        private readonly Setting<Color> oColor;
+        private readonly Setting<Color> buttonColor;
+        private readonly Setting<Color> fontColor;
 
         public DisplaySettingsProvider()
         {
-            backgroundColor = GameSettingsAdapter.BackgroundColor;
-            squareColor = GameSettingsAdapter.SquareColor;
-            xColor = GameSettingsAdapter.XColor;
-            oColor = GameSettingsAdapter.OColor;
-            buttonColor = GameSettingsAdapter.ButtonColor;
-            fontColor = GameSettingsAdapter.FontColor;
+            backgroundColor = SettingsFacade.BackgroundColor;
+            squareColor = SettingsFacade.SquareColor;
+            xColor = SettingsFacade.XColor;
+            oColor = SettingsFacade.OColor;
+            buttonColor = SettingsFacade.ButtonColor;
+            fontColor = SettingsFacade.FontColor;
         }
-        public Color BackgroundColor => backgroundColor;
+        public Color BackgroundColor => backgroundColor.Value;
 
-        public Color SquareColor => squareColor;
+        public Color SquareColor => squareColor.Value;
 
-        public Color XColor => xColor;
+        public Color XColor => xColor.Value;
 
-        public Color OColor => oColor;
+        public Color OColor => oColor.Value;
 
-        public Color ButtonColor => buttonColor;
+        public Color ButtonColor => buttonColor.Value;
 
-        public Color FontColor => fontColor;
+        public Color FontColor => fontColor.Value;
 
         public Color GetPlayerColor(GameTypes.Player player) =>
             player switch
