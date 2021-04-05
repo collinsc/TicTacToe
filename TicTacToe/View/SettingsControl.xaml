@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TicTacToe.View"
+
+      
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="610"
       Margin="0,0,0,0"
@@ -11,19 +13,224 @@
       HorizontalAlignment="Center" 
       VerticalAlignment="Center"
       DataContext="{Binding Settings, Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        
+        <SolidColorBrush x:Key="HighlightBrush" Color="{Binding Display.BackgroundColor, Source={StaticResource Locator}}" />
+        <SolidColorBrush x:Key= "BackgroundBrush" Color="{Binding Display.ButtonColor, Source={StaticResource Locator}}" />
 
+        <SolidColorBrush x:Key="ModeBrush" 
+                         Color="{Binding Display.FontColor, Source={StaticResource Locator}}"
+                         Opacity="0.5"/>
+        <SolidColorBrush x:Key="Mode2Brush" 
+                         Color="{Binding Display.FontColor, Source={StaticResource Locator}}"
+                         Opacity="0.5"/>
+
+
+
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Border x:Name="Border" 
+                        Grid.ColumnSpan="2"
+                        BorderThickness="0"
+                        Background="{StaticResource BackgroundBrush}">
+                </Border>
+                <Border Grid.Column="0"
+                        Margin="1" 
+                        Background="{StaticResource BackgroundBrush}" 
+                        BorderThickness="0,0,1,0" />
+                <Path   x:Name="Arrow"
+                        Grid.Column="1"     
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Data="M 0 0 L 4 4 L 8 0 Z"
+                        Fill="{StaticResource HighlightBrush}"/>
+            </Grid>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="TextBox">
+            <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
+
+        </ControlTemplate>
+        <Style  x:Key="{x:Type ComboBoxItem}"
+                TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="SnapsToDevicePixels"
+                    Value="true" />
+            <Setter Property="OverridesDefaultStyle"
+                    Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                        <Border x:Name="Border"
+                                Padding="2"
+                                SnapsToDevicePixels="true">
+                            <Border.Background>
+                                <SolidColorBrush    Color="{Binding Display.BackgroundColor, Source={StaticResource Locator}}" 
+                                                    Opacity="0"/>
+                            </Border.Background>
+
+                            <ContentPresenter />
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Opacity)"
+                                                From="0.5" To="0.0" Duration="0"/>
+                                        </Storyboard>
+                                    </VisualState>
+
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Opacity)"
+                                                From="0.0" To="0.5" Duration="0:0:0.25"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="{x:Type ComboBox}" TargetType="ComboBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid x:Name="Grid" >
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="PART_EditableTextBox"
+                                                Storyboard.TargetProperty="Foreground.(SolidColorBrush.Opacity)"
+                                                To="0.5" Duration="0:0:0.1"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="PART_EditableTextBox"
+                                                Storyboard.TargetProperty="Foreground.(SolidColorBrush.Opacity)"
+                                                From="0.5" To="1" Duration="0:0:0.25"/>
+                                        </Storyboard>
+                                    </VisualState> 
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ToggleButton   Name="ToggleButton" 
+                                            Template="{StaticResource ComboBoxToggleButton}" 
+                                            Grid.Column="2" 
+                                            Focusable="false"
+                                            IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                                            ClickMode="Press"/>
+                            
+
+                            <ContentPresenter   Name="ContentSite"
+                                                IsHitTestVisible="False" 
+                                                Margin="3,3,23,3"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Left" 
+                                                Content="{TemplateBinding ComboBox.SelectionBoxItem}"
+                                                ContentTemplate="{TemplateBinding ComboBox.SelectionBoxItemTemplate}"
+                                                ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"/>
+                            <TextBox    x:Name="PART_EditableTextBox"
+                                        Style="{x:Null}" 
+                                        Template="{StaticResource ComboBoxTextBox}" 
+                                        HorizontalAlignment="Left" 
+                                        VerticalAlignment="Center" 
+                                        Margin="3,3,23,3"
+                                        Focusable="True" 
+                                        Background="Transparent"
+                                        Visibility="Hidden"
+                                        IsReadOnly="{TemplateBinding IsReadOnly}"
+                                        Foreground="{TemplateBinding Foreground}"/>
+                            <Popup  Name="Popup"
+                                    Placement="Bottom"
+                                    IsOpen="{TemplateBinding IsDropDownOpen}"
+                                    AllowsTransparency="True" 
+                                    Focusable="False"
+                                    PopupAnimation="Slide">
+                                <Grid   Name="DropDown"
+                                        SnapsToDevicePixels="True"                
+                                        MinWidth="{TemplateBinding ActualWidth}"
+                                        MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder"
+                                            Background="{StaticResource BackgroundBrush}"
+                                            BorderThickness="1"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel     IsItemsHost="True" 
+                                                        KeyboardNavigation.DirectionalNavigation="Contained" 
+                                                        />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                            
+                        </Grid>
+                        
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+            </Style.Triggers>
+            
+        </Style>
+    </UserControl.Resources>
     <Grid HorizontalAlignment="Center" Height="Auto" VerticalAlignment="Center" Width="Auto">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="305"/>
+            <ColumnDefinition Width="305"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <Label Content="Mode" 
+               Grid.Row="0" 
+               Grid.Column="0"
+               Foreground="{StaticResource ModeBrush}"/>
+
+
+
+        <ComboBox 
+            Grid.Row="0" 
+            Grid.Column="1"
+            SelectedIndex="{Binding ModeIndex}"
+            Foreground="{StaticResource ModeBrush}">
+            <ComboBoxItem Content="Single Player" />
+            <ComboBoxItem Content="Two Player" />
+        </ComboBox>
+
+        <Label Content="Mode" 
+               Grid.Row="1" 
+               Grid.Column="0"
+               Foreground="{StaticResource Mode2Brush}"/>
+
+        <ComboBox 
+            Grid.Row="1" 
+            Grid.Column="1"
+            SelectedIndex="{Binding ModeIndex}"
+            Foreground="{StaticResource Mode2Brush}">
+            <ComboBoxItem Content="Single Player" />
+            <ComboBoxItem Content="Two Player" />
+
+        </ComboBox>
+
         <Button 
             Style="{StaticResource NavigationButton}"
             Content="Return to Menu" 
             HorizontalAlignment="Center" 
             VerticalAlignment="Top" 
+                Grid.Row="2"
+            Grid.ColumnSpan="2"
             Command="{Binding GoToMenuCommand}" />
 
     </Grid>

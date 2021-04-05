@@ -28,9 +28,6 @@
     <Compile Remove="View\Attach.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Remove="Properties\Resources.resx" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
     <PackageReference Include="Wpf.Themes.ExpressionDark" Version="1.1.0" />
   </ItemGroup>
@@ -38,18 +35,6 @@
     <ProjectReference Include="..\..\FunctionalTicTacToe\TicTacToe.Game\TicTacToe.Game.fsproj" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>

@@ -35,8 +35,8 @@ namespace TicTacToe.ViewModel
                 };
 
             var (x1, x2, y1, y2) = GetLineIndexes(winState);
-            IDisplaySettings displaySettings = SettingsFactory.GetDisplaySettings();
-            var color = displaySettings.GetPlayerColor(winningPlayer);
+
+            var color = SettingsFacade.GetPlayerColor(winningPlayer);
             return new LineDisplay
             {
                 From = new Point(x1, y1),
