@@ -100,5 +100,17 @@ namespace TicTacToe.Properties {
                 return ((global::System.Drawing.Color)(this["FontColor"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int Difficulty {
+            get {
+                return ((int)(this["Difficulty"]));
+            }
+            set {
+                this["Difficulty"] = value;
+            }
+        }
     }
 }

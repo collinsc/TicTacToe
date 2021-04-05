@@ -23,7 +23,7 @@ namespace TicTacToe.Model
         public void Start()
         {
             if (gameSettings.Mode == GameMode.SinglePlayer && gameSettings.HumanPlayer != Instance.ActivePlayer)
-                Instance.TakeAITurn();
+                Instance.TakeAITurn(gameSettings.Difficulty);
         }
 
         private IGameService Instance { get; }
@@ -40,7 +40,7 @@ namespace TicTacToe.Model
             {
                 Instance.TakeTurn(index.Item1, index.Item2);
                 if (!Instance.IsOver)
-                    Instance.TakeAITurn();
+                    Instance.TakeAITurn(gameSettings.Difficulty);
             }
             else
                 Instance.TakeTurn(index.Item1, index.Item2);
