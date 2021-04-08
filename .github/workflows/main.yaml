@@ -10,8 +10,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Launch the local action
-        uses: ./ # Uses an action in the root directory
+      - name: Make Code Badge
+        uses: shadowmoose/GHA-LoC-Badge@1.0.0
         id: badge
         with:
           debug: true
