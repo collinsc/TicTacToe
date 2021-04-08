@@ -1,6 +1,13 @@
-  
-on: [push]
+
 name: Run Test
+
+on: 
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
 
 jobs:
   hello_world_job:
